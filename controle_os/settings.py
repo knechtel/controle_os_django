@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'os_backend',
+    'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -75,17 +78,13 @@ WSGI_APPLICATION = 'controle_os.wsgi.application'
 
 DATABASES = {
     'default': {
-        'NAME': 'user_data',
-        'ENGINE': 'mysql.connector.django',
+        'NAME': 'django_os',
+        'ENGINE': 'django.db.backends.mysql',
         'HOST': '127.0.0.1',
         'PORT': 3306,
         'USER': 'root',
         'PASSWORD': '123',
-        'OPTIONS': {
-            'autocommit': True,
-            'use_oure': True,
-            'init_command': "SET foo='bar';"
-        },
+
     }
 }
 
@@ -130,3 +129,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
