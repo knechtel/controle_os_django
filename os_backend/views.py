@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework.viewsets import ModelViewSet
-from os_backend.serializers import EquipmentSeriliazers
+from os_backend.serializers import ClientSeriliazers, EquipmentSeriliazers
 from .models import Client, Equipment
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view,  permission_classes
@@ -31,6 +31,18 @@ class EquipmentList(ListAPIView):
 class EquipmentCreate(CreateAPIView):
     queryset = Equipment.objects.all()
     serializer_class = EquipmentSeriliazers
+
+
+@permission_classes([IsAuthenticated])
+class ClientCreate(CreateAPIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientSeriliazers
+
+
+@permission_classes([IsAuthenticated])
+class ClientList(ListAPIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientSeriliazers
 # class HelloView(APIView):
 #     permission_classes = (IsAuthenticated,)
 
